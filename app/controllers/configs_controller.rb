@@ -1,4 +1,6 @@
 class ConfigsController < ApplicationController
+	# Probably not good practice since this gets done before all actions, but doing it here
+	# just to see how it works
 	before_action :require_set_params
 
 	# takes config description and value pair, inserts or updates the configs table for the given value

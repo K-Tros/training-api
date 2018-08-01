@@ -1,11 +1,14 @@
 require_relative '../workers/timer_worker'
 
 class TimersController < ApplicationController
+	# Probably not good practice since this gets done before all actions, but doing it here
+	# just to see how it works
 	before_action :require_post_params
 
 	def post
 		# validate the actual content
 		id = params[:id]
+		puts params
 		if id.length != 15 || id[/\H/]
 			render json: {status: 'FAILED', message: 'Invalid ID value'}, status: :bad_request
 		else
@@ -36,6 +39,8 @@ class TimersController < ApplicationController
 
 	private
 	def require_post_params
+		puts params
 		params.require(:id)
+		params = params.slice('id', 'payload')
 	end
 end
