@@ -1,10 +1,9 @@
 require_relative '../workers/timer_worker'
 
 class TimersController < ApplicationController
+	before_action :require_post_params
 
 	def post
-		# initial params whitelisting
-		post_params
 		# validate the actual content
 		id = params[:id]
 		if id.length != 15 || id[/\H/]
@@ -36,7 +35,7 @@ class TimersController < ApplicationController
 	end
 
 	private
-	def post_params
+	def require_post_params
 		params.require(:id)
 	end
 end

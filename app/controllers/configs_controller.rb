@@ -1,8 +1,8 @@
 class ConfigsController < ApplicationController
+	before_action :require_set_params
+
 	# takes config description and value pair, inserts or updates the configs table for the given value
   def set
-  	# initial params whitelisting
-  	set_params
   	description = params[:description]
   	value = params[:value]
 
@@ -12,7 +12,7 @@ class ConfigsController < ApplicationController
   end
 
   private
-	def set_params
+	def require_set_params
 		params.require(:description)
 		params.require(:value)
 	end
