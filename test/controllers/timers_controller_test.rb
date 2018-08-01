@@ -18,6 +18,8 @@ class TimersControllerTest < ActionDispatch::IntegrationTest
 		refute_nil timer
 		# and that it was assigned a JID for the background timer
 		refute_nil timer.jid
+		# make sure that a timer job would have been started
+		assert_equal 1, TimerWorker.jobs.size
 
 		# call API again and make sure JID is nil signifying the job was canceled
 		post "/api/v1/timers", params: { id: @valid_identifier }
@@ -32,6 +34,8 @@ class TimersControllerTest < ActionDispatch::IntegrationTest
 		timer = Timer.find_by(identifier: @valid_identifier)
 		refute_nil timer
 		refute_nil timer.jid
+		# make sure that a timer job would have been started
+		assert_equal 2, TimerWorker.jobs.size
 
 		# ensure that it did not create multiple records in the database
 		assert_equal 1, Timer.where(identifier: @valid_identifier).count
