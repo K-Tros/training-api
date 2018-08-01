@@ -1,7 +1,7 @@
 class ConfigsController < ApplicationController
 	# Probably not good practice since this gets done before all actions, but doing it here
 	# just to see how it works
-	before_action :require_set_params
+	before_action :set_params
 
 	# takes config description and value pair, inserts or updates the configs table for the given value
   def set
@@ -14,8 +14,9 @@ class ConfigsController < ApplicationController
   end
 
   private
-	def require_set_params
+	def set_params
 		params.require(:description)
 		params.require(:value)
+		params.permit(:description, :value)
 	end
 end
