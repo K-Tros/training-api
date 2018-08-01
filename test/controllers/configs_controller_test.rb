@@ -1,8 +1,15 @@
 require 'test_helper'
+require 'database_cleaner'
 
-class ConfigControllerTest < ActionDispatch::IntegrationTest
+DatabaseCleaner.strategy = :truncation
+
+class ConfigsControllerTest < ActionDispatch::IntegrationTest
+	def setup
+		DatabaseCleaner.start
+	end
 
 	test "valid params" do
+		DatabaseCleaner.clean
 		post "/api/v1/configs", params: { description: 'test', value: '10' }
 		assert_response :success
 		# check that the commit succeeded

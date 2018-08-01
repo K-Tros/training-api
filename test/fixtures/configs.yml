@@ -1,3 +1,7 @@
 valid:
   description: test
   value: test_value
+
+timer_expiration_config:
+  description: Timer expiration
+  value: '10'

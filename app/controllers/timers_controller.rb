@@ -8,7 +8,7 @@ class TimersController < ApplicationController
 	def post
 		# validate the actual content
 		id = params[:id]
-		puts params
+		#puts params
 		if id.length != 15 || id[/\H/]
 			render json: {status: 'FAILED', message: 'Invalid ID value'}, status: :bad_request
 		else
@@ -39,8 +39,8 @@ class TimersController < ApplicationController
 
 	private
 	def require_post_params
-		puts params
+		#puts params
 		params.require(:id)
-		params = params.slice('id', 'payload')
+		#params = params.slice('id', 'payload')
 	end
 end
