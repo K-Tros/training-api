@@ -1,8 +1,8 @@
 class ConfigsController < ApplicationController
 	# takes config description and value pair, inserts or updates the configs table for the given value
   def set
-  	description = request.headers['description']
-  	value = request.headers['value']
+  	description = params[:description]
+  	value = params[:value]
 
   	if !(description && value)
   		render json: {status: 'FAILED', message: 'Invalid Arguments'}, status: :bad_request

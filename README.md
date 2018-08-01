@@ -15,7 +15,8 @@ Timer Endpoint
 * **Purpose:** Start a timer, or cancel a timer if one already exists for the ID passed in.
 * **Method:** POST 
 * **URL Params:** N/a 
-* **Headers:**
+* **Headers:** N/a
+* **JSON Body:**
   * Key: 'id', Value: 15 digit hexadecimal string
 * **Success Response:** 
   * Code: 200
@@ -30,7 +31,8 @@ Config Endpoint
 * **Purpose:** Sets a configuration value. Only 'Timer expiration' config does anything, but can be extended.
 * **Method:** POST 
 * **URL Params:** N/a 
-* **Headers:** 
+* **Headers:** N/a
+* **JSON Body:**
   * Key: 'description', Value: A string
   * Key: 'value', Value: A number representing how long a timer should run before it is expired
 * **Success Response:** 

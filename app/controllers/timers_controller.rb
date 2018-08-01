@@ -3,7 +3,7 @@ require_relative '../workers/timer_worker'
 class TimersController < ApplicationController
 
 	def post
-		id = request.headers['id']
+		id = params[:id]
 		if id.length != 15 || id[/\H/]
 			render json: {status: 'FAILED', message: 'Invalid ID value'}, status: :bad_request
 		else
