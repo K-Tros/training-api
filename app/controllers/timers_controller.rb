@@ -3,6 +3,9 @@ require_relative '../workers/timer_worker'
 class TimersController < ApplicationController
 
 	def post
+		# initial params whitelisting
+		post_params
+		# validate the actual content
 		id = params[:id]
 		if id.length != 15 || id[/\H/]
 			render json: {status: 'FAILED', message: 'Invalid ID value'}, status: :bad_request
@@ -30,5 +33,10 @@ class TimersController < ApplicationController
 			end
 			render json: {status: 'SUCCESS', message: 'POST succeeded'}, status: :ok
 		end
+	end
+
+	private
+	def post_params
+		params.require(:id)
 	end
 end

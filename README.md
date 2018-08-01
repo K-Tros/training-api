@@ -24,6 +24,9 @@ Timer Endpoint
 * **Error Response:** 
   * Code: 400
   * Content: `{ "status": "FAILED", "message": "Invalid ID value" }`
+  * OR
+  * Code: 400
+  * Content: `{ "error": "Bad Request", ... }`
 
 Config Endpoint
 ---
@@ -40,4 +43,4 @@ Config Endpoint
   * Content: `{ "status": "SUCCESS", "message": "Updated config" }`
 * **Error Response:** 
   * Code: 400
-  * Content: `{ "status": "FAILED", "message": "Invalid Arguments" }`
+  * Content: `{ "error": "Bad Request", ... }`
