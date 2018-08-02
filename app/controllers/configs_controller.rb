@@ -1,7 +1,5 @@
 class ConfigsController < ApplicationController
-	# Probably not good practice since this gets done before all actions, but doing it here
-	# just to see how it works
-	before_action :set_params
+	before_action :set_params, only: :set
 
 	# takes config description and value pair, inserts or updates the configs table for the given value
   def set

@@ -1,9 +1,7 @@
 require_relative '../workers/timer_worker'
 
 class TimersController < ApplicationController
-	# Probably not good practice since this gets done before all actions, but doing it here
-	# just to see how it works
-	before_action :post_params
+	before_action :post_params, only: :post
 
 	def post
 		# validate the actual content
