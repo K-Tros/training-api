@@ -52,4 +52,10 @@ class TimersControllerTest < ActionDispatch::IntegrationTest
 		post "/api/v1/timers", params: { id: 'mkmkmkmkmkmkmkk' }
 		assert_response :bad_request
 	end
+
+	test "should accept payload param" do
+		DatabaseCleaner.clean
+		post "/api/v1/timers", params: { id: @valid_identifier, payload: { 'fake_key': 'fake_value', 'fake_key2': 'fake_value' } }
+		assert_response :success
+	end
 end
