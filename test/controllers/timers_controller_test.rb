@@ -46,4 +46,10 @@ class TimersControllerTest < ActionDispatch::IntegrationTest
 			post "/api/v1/timers", params: { }
 		end
 	end
+
+	test "invalid with bad non-hex identifier" do
+		DatabaseCleaner.clean
+		post "/api/v1/timers", params: { id: 'mkmkmkmkmkmkmkk' }
+		assert_response :bad_request
+	end
 end

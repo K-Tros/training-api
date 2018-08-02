@@ -22,6 +22,12 @@ class TimerTest < ActiveSupport::TestCase
   	assert_not_nil @timer.errors[:identifier]
   end
 
+  test "invalid ID that is not valid hexadecimal" do
+    @timer.identifier = 'mkmkmkmkmkmkmkm'
+    refute @timer.valid?
+    assert_not_nil @timer.errors[:identifier]
+  end
+
   test "should not allow duplicate identifiers" do
   	timer1 = Timer.new
   	timer1.identifier = @timer.identifier

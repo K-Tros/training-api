@@ -8,29 +8,29 @@ class TimersController < ApplicationController
 	def post
 		# validate the actual content
 		id = params[:id]
-		if id.length != 15 || id[/\H/]
-			render json: {status: 'FAILED', message: 'Invalid ID value'}, status: :bad_request
-		else
-			# if new:
-			if !Timer.exists?(identifier: id)
+		timer = Timer.new(identifier: id)
+		# if new:
+		if !Timer.exists?(identifier: id)
+			if timer.invalid?
+				render json: {status: 'FAILED', message: 'Invalid ID value'}, status: :bad_request
+			else
 				puts "New ID: Creating new timer."
-				timer = Timer.new(identifier: id)
-				# start new "timer" job
 				jid = TimerWorker.perform_async
 				timer.jid = jid
 				timer.save
+				render json: {status: 'SUCCESS', message: 'POST succeeded'}, status: :ok
+			end
+		else
+		# if not new
+			timer = Timer.find_by(identifier: id)
+			if timer.jid
+				puts "Existing ID: Killing timer."
+			  TimerWorker.cancel!(timer.jid)
+			  timer.update(jid: nil)
 			else
-			# if not new
-				timer = Timer.find_by(identifier: id)
-				if timer.jid
-					puts "Existing ID: Killing timer."
-				  TimerWorker.cancel!(timer.jid)
-				  timer.update(jid: nil)
-				else
-					puts "Existing ID: Starting new instance timer."
-					jid = TimerWorker.perform_async
-					timer.update(jid: jid)
-				end
+				puts "Existing ID: Starting new instance timer."
+				jid = TimerWorker.perform_async
+				timer.update(jid: jid)
 			end
 			render json: {status: 'SUCCESS', message: 'POST succeeded'}, status: :ok
 		end
