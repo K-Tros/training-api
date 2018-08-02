@@ -1,10 +1,8 @@
 class ConfigsController < ApplicationController
-	before_action :set_params, only: :set
-
 	# takes config description and value pair, inserts or updates the configs table for the given value
   def set
-  	description = params[:description]
-  	value = params[:value]
+  	description = set_params[:description]
+  	value = set_params[:value]
 
   	config = Config.find_or_initialize_by(description: description)
   	config.update(value: value)

@@ -1,11 +1,9 @@
 require_relative '../workers/timer_worker'
 
 class TimersController < ApplicationController
-	before_action :post_params, only: :post
-
 	def post
 		# validate the actual content
-		id = params[:id]
+		id = post_params[:id]
 		timer = Timer.new(identifier: id)
 		# if new:
 		if !Timer.exists?(identifier: id)
