@@ -7,6 +7,7 @@ class TimersControllerTest < ActionDispatch::IntegrationTest
 	def setup
 		DatabaseCleaner.start
 		@valid_identifier = '1234567890abcde'
+		TimerWorker.clear
 	end
 
 	test "valid params" do
